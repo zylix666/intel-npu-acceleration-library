@@ -81,21 +81,18 @@ if __name__=='__main__':
         elements = line.split(',')
         inference_data[elements[0]] = elements[1]
 
-    i = 0
     for filename, label in inference_data.items():
-        if i == 0:
-            resampled_audio, duration = get_audio(prefix_path+filename)
-            # Record the start time
-            start_time = time.time()
-            transcription = optimized_model.transcribe(resampled_audio, task="transcribe")
-            end_time = time.time()
-            # Calculate the execution time
-            execution_time = end_time - start_time
-            print(transcription['text'])
-            print('WER(word error rate): ' + str(round(calculate_wer(label, transcription['text']),2)))
-            # Print the execution time
-            print(f"Execution time: {execution_time:.4f} seconds")
-        i+=1
-        
+        resampled_audio, duration = get_audio(prefix_path+filename)
+        # Record the start time
+        start_time = time.time()
+        transcription = optimized_model.transcribe(resampled_audio, task="transcribe")
+        end_time = time.time()
+        # Calculate the execution time
+        execution_time = end_time - start_time
+        print(transcription['text'])
+        print('WER(word error rate): ' + str(round(calculate_wer(label, transcription['text']),2)))
+        # Print the execution time
+        print(f"Execution time: {execution_time:.4f} seconds")
+ 
 
 
